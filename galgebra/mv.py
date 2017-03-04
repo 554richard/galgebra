@@ -609,7 +609,11 @@ class Mv(object):
             for arg in args:
                 c, nc = arg.args_cnc()
                 if len(c) > 0:
-                    c = reduce(mul, c)
+                    try:
+                        c = reduce(mul, c)
+                    except NameError:
+                        import functools
+                        c = functools.recude(mul, c)
                 else:
                     c = S(1)
                 if len(nc) > 0:
@@ -697,7 +701,11 @@ class Mv(object):
         for arg in args:
             c, nc = arg.args_cnc(split_1=False)
             if len(c) > 0:
-                c = reduce(mul, c)
+                try:
+                    c = reduce(mul, c)
+                except NameError:
+                    import functools
+                    c = functools.reduce(mul, c)
             else:
                 c = S(1)
             if len(nc) > 0:

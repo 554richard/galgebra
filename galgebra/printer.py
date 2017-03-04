@@ -623,7 +623,10 @@ class GaLatexPrinter(LatexPrinter):
             pass
         else:
             GaLatexPrinter.stdout = sys.stdout
-            sys.stdout = StringIO.StringIO()
+            try:
+                sys.stdout = StringIO.StringIO()
+            except AttributeError:
+                sys.stdout = StringIO()
         return
 
     @staticmethod
@@ -746,7 +749,7 @@ class GaLatexPrinter(LatexPrinter):
                     subs = map(translate, subs)
 
                 # glue all items together:
-                if len(supers) > 0:
+                if len(list(supers)) > 0:
                     name += "^{%s}" % " ".join(supers)
                 if len(subs) > 0:
                     name += "_{%s}" % " ".join(subs)

@@ -10,6 +10,12 @@ from sympy import diff, trigsimp, Matrix, Rational, \
 
 import printer
 
+# basestring Py2 vs. Py3 fix:
+try:
+    basestring = basestring
+except NameError:
+    basestring = (str,bytes)
+
 half = Rational(1, 2)
 
 def apply_function_list(f,x):
