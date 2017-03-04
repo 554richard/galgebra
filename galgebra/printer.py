@@ -751,7 +751,7 @@ class GaLatexPrinter(LatexPrinter):
                 # glue all items together:
                 if len(list(supers)) > 0:
                     name += "^{%s}" % " ".join(supers)
-                if len(subs) > 0:
+                if len(list(subs)) > 0:
                     name += "_{%s}" % " ".join(subs)
 
                 s += name + mode_dict[mode]
