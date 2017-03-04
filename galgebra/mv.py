@@ -613,7 +613,7 @@ class Mv(object):
                         c = reduce(mul, c)
                     except NameError:
                         import functools
-                        c = functools.recude(mul, c)
+                        c = functools.reduce(mul, c)
                 else:
                     c = S(1)
                 if len(nc) > 0:
