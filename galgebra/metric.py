@@ -165,9 +165,9 @@ def test_init_slots(init_slots, **kwargs):
 
     for slot in kwargs:
         if slot not in init_slots:
-            print 'Allowed keyed input arguments'
+            print('Allowed keyed input arguments')
             for key in init_slots:
-                print key + ': ' + init_slots[key][1]
+                print(key + ': ' + init_slots[key][1])
             raise ValueError('"' + slot + ' = " not in allowed values.')
     for slot in init_slots:
         if slot in kwargs:
@@ -524,7 +524,7 @@ class Metric(object):
         if self.debug:
             for x_i in self.n_range:
                 for jb in self.n_range:
-                    print '\partial_{' + str(self.coords[x_i]) + '}\hat{e}_{' + str(self.coords[jb]) + '} =', self.de[x_i][jb]
+                    print('\partial_{' + str(self.coords[x_i]) + '}\hat{e}_{' + str(self.coords[jb]) + '} =', self.de[x_i][jb])
 
         # Normalize metric tensor
 
@@ -735,9 +735,8 @@ class Metric(object):
                 self.e_sq_sgn = '-'
 
         if self.debug:
-            print 'signature =', self.sig
+            print('signature =', self.sig)
 
 
 if __name__ == "__main__":
     pass
-

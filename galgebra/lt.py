@@ -15,7 +15,7 @@ def aprint(a):
     out = ''
     for ai in a:
         out += str(ai)+','
-    print '['+out[:-1]+']'
+    print('['+out[:-1]+']')
     return
 
 def Symbolic_Matrix(root,coords=None,mode='g',f=False,sub=True):
@@ -624,9 +624,9 @@ class Mlt(object):
             display(Math(latex_str))
         else:
             if title is not None:
-                print title + ' = ' + latex_str
+                print(title + ' = ' + latex_str)
             else:
-                print latex_str
+                print(latex_str)
         return
 
     @staticmethod
@@ -700,8 +700,8 @@ class Mlt(object):
                 self.nargs = 1
             if self.nargs > 1: #  General tensor of rank > 1
                 t_indexes = self.nargs * [Mlt.extact_basis_indexes(self.Ga)]
-                print t_indexes
-                print self.Ga.Pdiffs
+                print(t_indexes)
+                print(self.Ga.Pdiffs)
                 self.fvalue = 0
                 for (t_index,a_prod) in zip(itertools.product(*t_indexes),
                                             itertools.product(*self.Ga.Pdiffs)):
@@ -862,7 +862,7 @@ class Mlt(object):
         i = 1
         output = ''
         for (e,i_index) in zip(itertools.product(*indexes),itertools.product(*i_indexes)):
-            if i_index[-1] % ndim == 0: print ''
+            if i_index[-1] % ndim == 0: print('')
             output += str(i)+':'+str(i_index)+':'+str(self(*e)) + '\n'
             i += 1
         return output

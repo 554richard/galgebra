@@ -2,7 +2,10 @@
 
 import os
 import sys
-import StringIO
+try:
+    from StringIO import StringIO
+except ImportError:
+    from io import StringIO
 import re
 from sympy import Matrix, Basic, S, Symbol, Function, Derivative, Pow
 from itertools import islice
@@ -227,16 +230,16 @@ def oprint(*args, **kwargs):
 
         for (title, obj) in zip(titles, objs):
             if obj is None:
-                print title
+                print(title)
             else:
                 npad = n - len(title)
                 if isinstance(obj, dict):
-                    print title + ':' + ostr(obj, dict_mode)
+                    print(title + ':' + ostr(obj, dict_mode))
                 else:
-                    print title + npad * ' ' + ' = ' + ostr(obj, dict_mode)
+                    print(title + npad * ' ' + ' = ' + ostr(obj, dict_mode))
     else:
         for arg in args:
-            print ostr(arg, dict_mode)
+            print(ostr(arg, dict_mode))
     return
 
 
@@ -285,10 +288,10 @@ class Eprint:
             Eprint.normal = '\033[0m'
 
             if debug:
-                print 'Enhanced Printing is on:'
-                print 'Base/Blade color is ' + Eprint.InvColorCode[Eprint.base]
-                print 'Function color is ' + Eprint.InvColorCode[Eprint.fct]
-                print 'Derivative color is ' + Eprint.InvColorCode[Eprint.deriv] + '\n'
+                print('Enhanced Printing is on:')
+                print('Base/Blade color is ' + Eprint.InvColorCode[Eprint.base])
+                print('Function color is ' + Eprint.InvColorCode[Eprint.fct])
+                print('Derivative color is ' + Eprint.InvColorCode[Eprint.deriv] + '\n')
 
             Eprint.base = '\033[' + Eprint.base + 'm'
             Eprint.fct = '\033[' + Eprint.fct + 'm'
@@ -955,7 +958,7 @@ def latex(expr, **settings):
 
 def print_latex(expr, **settings):
     """Prints LaTeX representation of the given expression."""
-    print latex(expr, **settings)
+    print(latex(expr, **settings))
 
 
 def Format(Fmode=True, Dmode=True, dop=1, inverse='full'):
@@ -1107,7 +1110,7 @@ def xpdf(filename=None, paper=(14, 11), crop=False, png=False, prog=False, debug
         latex_str = prog_str + latex_str
 
     if debug:
-        print latex_str
+        print(latex_str)
 
     if paper == 'letter':
         paper_size = \
@@ -1134,7 +1137,7 @@ def xpdf(filename=None, paper=(14, 11), crop=False, png=False, prog=False, debug
         rootfilename = pyfilename.replace('.py', '')
         filename = rootfilename + '.tex'
 
-    print 'latex file =', filename
+    print('latex file =', filename)
 
     latex_file = open(filename, 'w')
     latex_file.write(latex_str)
@@ -1144,7 +1147,7 @@ def xpdf(filename=None, paper=(14, 11), crop=False, png=False, prog=False, debug
 
     pdflatex = find_executable('pdflatex')
 
-    print 'pdflatex path =', pdflatex
+    print('pdflatex path =', pdflatex)
 
     if pdflatex is not None:
         latex_str = 'pdflatex'
@@ -1158,7 +1161,7 @@ def xpdf(filename=None, paper=(14, 11), crop=False, png=False, prog=False, debug
             os.system(latex_str + ' ' + filename[:-4] + sys_cmd['null'])
 
         print_cmd = sys_cmd['evince'] + ' ' + filename[:-4] + '.pdf ' + sys_cmd['&']
-        print print_cmd
+        print(print_cmd)
 
         os.system(print_cmd)
         raw_input('!!!!Return to continue!!!!\n')
@@ -1212,16 +1215,16 @@ def Print_Function():
     fct_name = fct_name.replace('_', ' ')
     if GaLatexPrinter.latex_flg:
         #print '#Code for '+fct_name
-        print '##\\begin{lstlisting}[language=Python,showspaces=false,' + \
-              'showstringspaces=false,backgroundcolor=\color{gray},frame=single]'
-        print tmp_str
-        print '##\\end{lstlisting}'
-        print '#Code Output:'
+        print('##\\begin{lstlisting}[language=Python,showspaces=false,' + \
+              'showstringspaces=false,backgroundcolor=\color{gray},frame=single]')
+        print(tmp_str)
+        print('##\\end{lstlisting}')
+        print('#Code Output:')
     else:
-        print '\n' + 80 * '*'
+        print('\n' + 80 * '*')
         #print '\nCode for '+fct_name
-        print tmp_str
-        print 'Code output:\n'
+        print(tmp_str)
+        print('Code output:\n')
     return
 
 
@@ -1409,8 +1412,8 @@ def GAeval(s, pstr=False):
 
     seval = parse_line(s)
     if pstr:
-        print s
-        print seval
+        print(s)
+        print(seval)
     return eval(seval, global_dict)
 
 """

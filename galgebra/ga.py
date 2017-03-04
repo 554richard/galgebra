@@ -356,7 +356,7 @@ class Ga(metric.Metric):
         if self.e_sq.is_number:
             if self.e_sq == S(0):
                 self.sing_flg = True
-                print '!!!!If I**2 = 0, I cannot be normalized!!!!'
+                print('!!!!If I**2 = 0, I cannot be normalized!!!!')
                 #raise ValueError('!!!!If I**2 = 0, I cannot be normalized!!!!')
             if self.e_sq > S(0):
                 self.i = self.e/sqrt(self.e_sq)
@@ -379,7 +379,7 @@ class Ga(metric.Metric):
             self.grads()
 
         if self.debug:
-            print 'Exit Ga.__init__()'
+            print('Exit Ga.__init__()')
 
         self.a = []  # List of dummy vectors for Mlt calculations
         self.agrads = {}  # Gradient operator with respect to vector a
@@ -747,7 +747,7 @@ class Ga(metric.Metric):
 
         self.dot_mode = '|'
         if self.debug:
-            print 'Exit basis_product_tables.\n'
+            print('Exit basis_product_tables.\n')
         return
 
     def build_connection(self):
@@ -1038,7 +1038,7 @@ class Ga(metric.Metric):
         self.basic_mul_table_dict = OrderedDict(mul_table)
 
         if self.debug:
-            print 'basic_mul_table =\n', self.basic_mul_table
+            print('basic_mul_table =\n', self.basic_mul_table)
         return
 
     def non_orthogonal_bases_products(self, base12):  # base12 = (base1,base2)
@@ -1088,7 +1088,7 @@ class Ga(metric.Metric):
         self.blade_expansion_dict = OrderedDict(zip(self.blades_lst, blade_expansion))
 
         if self.debug:
-            print 'blade_expansion_dict =', self.blade_expansion_dict
+            print('blade_expansion_dict =', self.blade_expansion_dict)
 
         # expand base basis in terms of blade basis
 
@@ -1108,7 +1108,7 @@ class Ga(metric.Metric):
         self.base_expansion_dict = OrderedDict(base_expand)
 
         if self.debug:
-            print 'base_expansion_dict =', self.base_expansion_dict
+            print('base_expansion_dict =', self.base_expansion_dict)
 
         return
 
@@ -1421,7 +1421,7 @@ class Ga(metric.Metric):
         """
 
         if self.debug:
-            print 'Enter build_reciprocal_basis.\n'
+            print('Enter build_reciprocal_basis.\n')
 
         if self.is_ortho:
             self.r_basis = [self.basis[i] / self.g[i, i] for i in self.n_range]
@@ -1444,7 +1444,7 @@ class Ga(metric.Metric):
             else:
                 self.e_sq = simplify((self.e * self.e).obj)
             if self.debug:
-                print 'E**2 =', self.e_sq
+                print('E**2 =', self.e_sq)
             duals = list(self.blades_lst[-(self.n + 1):-1])
             duals.reverse()
 
@@ -1459,14 +1459,14 @@ class Ga(metric.Metric):
             if self.debug:
                 printer.oprint('E', self.iobj, 'E**2', self.e_sq, 'unnormalized reciprocal basis =\n', self.r_basis)
                 self.dot_mode = '|'
-                print 'reciprocal basis test ='
+                print('reciprocal basis test =')
                 for ei in self.basis:
                     for ej in self.r_basis:
                         ei_dot_ej = self.dot(ei, ej)
                         if ei_dot_ej == zero:
-                            print 'e_{i}|e_{j} = ' + str(ei_dot_ej)
+                            print('e_{i}|e_{j} = ' + str(ei_dot_ej))
                         else:
-                            print 'e_{i}|e_{j} = ' + str(expand(ei_dot_ej / self.e_sq))
+                            print('e_{i}|e_{j} = ' + str(expand(ei_dot_ej / self.e_sq)))
 
         self.e_obj = self.blades_lst[-1]
 
@@ -1509,7 +1509,7 @@ class Ga(metric.Metric):
         self.g_inv = g_inv
 
         if self.debug:
-            print 'reciprocal basis dictionary =\n', self.r_basis_dict
+            print('reciprocal basis dictionary =\n', self.r_basis_dict)
 
         # True is for left derivative and False is for right derivative
         self.deriv = {('*', True): [], ('^', True): [], ('|', True): [],
@@ -1645,9 +1645,9 @@ class Ga(metric.Metric):
         mode = *_{2} = *, ^, or |.
         """
         (Sop, Bop) = Ga.DopFop[(grad_sqr_mode, mode)]
-        print '(Sop, Bop) =', Sop, Bop
+        print('(Sop, Bop) =', Sop, Bop)
 
-        print 'grad_sqr:A =', A
+        print('grad_sqr:A =', A)
 
         self.dot_mode == '|'
         s = zero
@@ -1659,7 +1659,7 @@ class Ga(metric.Metric):
         for coord_i in self.coords:
             dA_i.append(self.pDiff(A, coord_i))
 
-        print 'dA_i =', dA_i
+        print('dA_i =', dA_i)
 
         if Sop:
             for i in self.n_range:
@@ -1674,8 +1674,8 @@ class Ga(metric.Metric):
         if Bop and self.connect_flg:
             for i in self.n_range:
                 coord_i = self.coords[i]
-                print 'mode =', mode
-                print 'dA_i[i] =', dA_i[i]
+                print('mode =', mode)
+                print('dA_i[i] =', dA_i[i])
                 if left:
                     if mode == '|':
                         s += self.dot(self.grad_sq_mv_connect[coord_i], dA_i[i])
@@ -1894,7 +1894,7 @@ class Sm(Ga):
         self.u = u
 
         if debug:
-            print 'Exit Sm.__init__()'
+            print('Exit Sm.__init__()')
 
     def vpds(self):
         if not self.is_ortho:

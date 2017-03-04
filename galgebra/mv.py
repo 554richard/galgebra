@@ -4,7 +4,7 @@ import itertools
 import copy
 import numbers
 import operator
-from compiler.ast import flatten
+#from compiler.ast import flatten
 from operator import itemgetter, mul, add
 from itertools import combinations
 from sympy import Symbol, Function, S, expand, Add, Mul, Pow, Basic, \
@@ -1399,13 +1399,13 @@ def compare(A,B):
             return 0
         if Bcoefs[0] != 0 and Abases[0] == Bbases[0]:
             c = simplify(Acoefs[0]/Bcoefs[0])
-            print 'c =',c
+            print('c =',c)
         else:
             return 0
         for acoef,abase,bcoef,bbase in zip(Acoefs[1:],Abases[1:],Bcoefs[1:],Bbases[1:]):
-            print acoef,'\n',abase,'\n',bcoef,'\n',bbase
+            print(acoef,'\n',abase,'\n',bcoef,'\n',bbase)
             if bcoef != 0 and abase == bbase:
-                print 'c-a/b =',simplify(c-(acoef/bcoef))
+                print('c-a/b =',simplify(c-(acoef/bcoef)))
                 if simplify(acoef/bcoef) != c:
                     return 0
                 else:
@@ -2695,7 +2695,7 @@ class MV(Mv):
         Mv.__init__(self, base, mvtype, f=fct, ga=MV.GA)
 
     def Fmt(self, fmt=1, title=None):
-        print Mv.Fmt(self, fmt=fmt, title=title)
+        print(Mv.Fmt(self, fmt=fmt, title=title))
         return
 
 def ReciprocalFrame(basis, mode='norm'):
