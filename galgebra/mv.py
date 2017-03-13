@@ -1494,7 +1494,7 @@ class Sdop(object):
         return
 
     def Sdop_str(self):
-        if len(self.terms) == 0:
+        if len(list(self.terms)) == 0:
             return '0'
 
         self.sort_terms()
@@ -1516,12 +1516,12 @@ class Sdop(object):
         s = s.replace('+ -','- ')
         s = s[:-3]
         if Sdop.str_mode:
-            if len(self.terms) > 1 or isinstance(self.terms[0][0], Add):
+            if len(list(self.terms)) > 1 or isinstance(self.terms[0][0], Add):
                 s = '(' + s + ')'
         return s
 
     def Sdop_latex_str(self):
-        if len(self.terms) == 0:
+        if len(list(self.terms)) == 0:
             return '0'
 
         self.sort_terms()
@@ -1669,7 +1669,7 @@ class Sdop(object):
                 return False
             self = Sdop.consolidate_coefs(self)
             sdop = Sdop.consolidate_coefs(sdop)
-            if len(self.terms) != len(sdop.terms):
+            if len(list(self.terms)) != len(sdop.terms):
                 return False
             if set(self.terms) != set(sdop.terms):
                 return False
@@ -2285,7 +2285,7 @@ class Dop(object):
 
             self = Sdop.consolidate_coefs(self)
             dop = Sdop.consolidate_coefs(dop)
-            if len(self.terms) != len(dop.terms):
+            if len(list(self.terms)) != len(dop.terms):
                 return False
             if set(self.terms) != set(dop.terms):
                 return False
@@ -2372,7 +2372,7 @@ class Dop(object):
         return sorted(terms, key=lambda x: self.Ga.blades_lst0.index(x[1]))
 
     def Dop_str(self):
-        if len(self.terms) == 0:
+        if len(list(self.terms)) == 0:
             return ' 0 '
 
         mv_terms = self.Dop_mv_expand(modes=simplify)
@@ -2405,7 +2405,7 @@ class Dop(object):
         return s[:-3]
 
     def Dop_latex_str(self):
-        if len(self.terms) == 0:
+        if len(list(self.terms)) == 0:
             return ' 0 '
 
         self.consolidate_coefs()
