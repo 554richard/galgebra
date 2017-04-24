@@ -3,7 +3,7 @@
 import os
 import sys
 try:
-    from StringIO import StringIO
+    from io import StringIO
 except ImportError:
     from io import StringIO
 import re
@@ -139,7 +139,7 @@ def ostr(obj, dict_mode=False, indent=True):
         elif isinstance(obj, dict):
             if dict_mode:
                 ostr_s += '\n'
-                for key in obj.keys():
+                for key in list(obj.keys()):
                     ostr_rec(key, dict_mode)
                     if ostr_s[-1] == ',':
                         ostr_s = ostr_s[:-1]
@@ -150,7 +150,7 @@ def ostr(obj, dict_mode=False, indent=True):
                     ostr_s += '\n'
             else:
                 ostr_s += '{'
-                for key in obj.keys():
+                for key in list(obj.keys()):
                     ostr_rec(key, dict_mode)
                     if ostr_s[-1] == ',':
                         ostr_s = ostr_s[:-1]
@@ -234,12 +234,12 @@ def oprint(*args, **kwargs):
             else:
                 npad = n - len(title)
                 if isinstance(obj, dict):
-                    print(title + ':' + ostr(obj, dict_mode))
+                    print((title + ':' + ostr(obj, dict_mode)))
                 else:
-                    print(title + npad * ' ' + ' = ' + ostr(obj, dict_mode))
+                    print((title + npad * ' ' + ' = ' + ostr(obj, dict_mode)))
     else:
         for arg in args:
-            print(ostr(arg, dict_mode))
+            print((ostr(arg, dict_mode)))
     return
 
 
@@ -255,7 +255,7 @@ class Eprint:
                     'dark gray': '1;30', 'bright yellow': '1;33',
                     'normal': '0'}
 
-    InvColorCode = dict(zip(ColorCode.values(), ColorCode.keys()))
+    InvColorCode = dict(list(zip(list(ColorCode.values()), list(ColorCode.keys()))))
 
     normal = ''
     base = ''
@@ -289,9 +289,9 @@ class Eprint:
 
             if debug:
                 print('Enhanced Printing is on:')
-                print('Base/Blade color is ' + Eprint.InvColorCode[Eprint.base])
-                print('Function color is ' + Eprint.InvColorCode[Eprint.fct])
-                print('Derivative color is ' + Eprint.InvColorCode[Eprint.deriv] + '\n')
+                print(('Base/Blade color is ' + Eprint.InvColorCode[Eprint.base]))
+                print(('Function color is ' + Eprint.InvColorCode[Eprint.fct]))
+                print(('Derivative color is ' + Eprint.InvColorCode[Eprint.deriv] + '\n'))
 
             Eprint.base = '\033[' + Eprint.base + 'm'
             Eprint.fct = '\033[' + Eprint.fct + 'm'
@@ -341,7 +341,7 @@ class GaPrinter(StrPrinter):
         return Eprint.Fct("%s" % (name,))
 
     def _print_Derivative(self, expr):
-        diff_args = map(self._print, expr.args)
+        diff_args = list(map(self._print, expr.args))
         xi = []
         ni = []
         for x in diff_args[1:]:
@@ -743,10 +743,10 @@ class GaLatexPrinter(LatexPrinter):
                     name = '\\boldsymbol{' + name +'}'
 
                 if supers != []:
-                    supers = map(translate, supers)
+                    supers = list(map(translate, supers))
 
                 if subs != []:
-                    subs = map(translate, subs)
+                    subs = list(map(translate, subs))
 
                 # glue all items together:
                 if len(list(supers)) > 0:
@@ -961,7 +961,7 @@ def latex(expr, **settings):
 
 def print_latex(expr, **settings):
     """Prints LaTeX representation of the given expression."""
-    print(latex(expr, **settings))
+    print((latex(expr, **settings)))
 
 
 def Format(Fmode=True, Dmode=True, dop=1, inverse='full'):
@@ -1140,7 +1140,7 @@ def xpdf(filename=None, paper=(14, 11), crop=False, png=False, prog=False, debug
         rootfilename = pyfilename.replace('.py', '')
         filename = rootfilename + '.tex'
 
-    print('latex file =', filename)
+    print(('latex file =', filename))
 
     latex_file = open(filename, 'w')
     latex_file.write(latex_str)
@@ -1150,7 +1150,7 @@ def xpdf(filename=None, paper=(14, 11), crop=False, png=False, prog=False, debug
 
     pdflatex = find_executable('pdflatex')
 
-    print('pdflatex path =', pdflatex)
+    print(('pdflatex path =', pdflatex))
 
     if pdflatex is not None:
         latex_str = 'pdflatex'
@@ -1167,7 +1167,7 @@ def xpdf(filename=None, paper=(14, 11), crop=False, png=False, prog=False, debug
         print(print_cmd)
 
         os.system(print_cmd)
-        raw_input('!!!!Return to continue!!!!\n')
+        input('!!!!Return to continue!!!!\n')
 
         if debug:
             os.system(sys_cmd['rm'] + ' ' + filename[:-4] + '.aux ' + filename[:-4] + '.log')
@@ -1218,13 +1218,13 @@ def Print_Function():
     fct_name = fct_name.replace('_', ' ')
     if GaLatexPrinter.latex_flg:
         #print '#Code for '+fct_name
-        print('##\\begin{lstlisting}[language=Python,showspaces=false,' + \
-              'showstringspaces=false,backgroundcolor=\color{gray},frame=single]')
+        print(('##\\begin{lstlisting}[language=Python,showspaces=false,' + \
+              'showstringspaces=false,backgroundcolor=\color{gray},frame=single]'))
         print(tmp_str)
         print('##\\end{lstlisting}')
         print('#Code Output:')
     else:
-        print('\n' + 80 * '*')
+        print(('\n' + 80 * '*'))
         #print '\nCode for '+fct_name
         print(tmp_str)
         print('Code output:\n')
